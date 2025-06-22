@@ -1,4 +1,3 @@
-import React from 'react';
 
 const Loader = () => {
   return (
@@ -7,5 +6,6 @@ const Loader = () => {
     </div>
   );
 };
+
 
 export default Loader;
