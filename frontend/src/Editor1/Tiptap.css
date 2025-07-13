@@ -1,0 +1,220 @@
+/* ─────────────────────────  ❶ Design tokens  ───────────────────────── */
+:root {
+  --black:        #1f2937;   /* slate‑800 */
+  --white:        #ffffff;
+  --gray-1:       #f3f4f6;   /* slate‑100 */
+  --gray-2:       #e5e7eb;   /* slate‑200 */
+  --gray-3:       #d1d5db;   /* slate‑300 */
+  --gray-4:       #9ca3af;   /* slate‑400 */
+  --purple-light: #ede9fe;   /* purple‑100 */
+  --brand:        #6366f1;   /* indigo‑500 */
+}
+
+/* ─────────────────────────  ❷ Toolbar wrapper  ─────────────────────── */
+.control-group {
+  margin-top: 2rem;
+  margin-bottom: 0.3rem;
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+}
+
+/* ─────────────────────────  ❸ Button strip  ───────────────────────── */
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  padding: 0.4rem 0.6rem;
+  background: var(--white);
+  border: 1px solid var(--gray-3);
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+}
+
+.button-group button {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 0.375rem;
+  color: var(--black);
+  cursor: pointer;
+  transition: background 120ms ease;
+}
+
+.button-group button:not(:disabled):hover {
+  background: var(--gray-3);
+}
+
+.button-group button.is-active {
+  background: var(--brand);
+  color: var(--white);
+}
+
+.button-group button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Drop‑down for H1/H2/H3 */
+/* .heading-picker {
+  position: relative;
+} */
+.heading-picker .heading-btn {
+  all: unset;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 0.375rem;
+  cursor: pointer;
+}
+.heading-picker .caret {
+  font-size: 0.55rem;
+  margin-left: 2px;
+}
+.heading-picker .heading-menu {
+  position: absolute;
+  /* top: 110%;
+  left: 0; */
+  background: var(--white);
+  border: 1px solid var(--gray-3);
+  border-radius: 0.375rem;
+  box-shadow: 0 2px 6px rgb(0 0 0 / 8%);
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+.heading-picker .heading-menu button {
+  all: unset;
+  padding: 0.3rem 0.75rem;
+  text-align: left;
+  cursor: pointer;
+}
+.heading-picker .heading-menu button:hover {
+  background: var(--gray-2);
+}
+
+/* ─────────────────────────  ❹ Editor area  ────────────────────────── */
+.tiptap {
+ overflow-x: hidden;
+ overflow-y: auto;
+ scrollbar-width: none;
+  width: 93%;
+  line-height: 1.6;
+  color: var(--black);
+  font-size: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+  margin-left: 2rem;
+  background-color: var(--white);
+  height: 25rem;
+}
+
+.tiptap .ProseMirror { height: 100%; }
+
+.tiptap > *:first-child { margin-top: 0; }
+
+/* Placeholder */
+.tiptap p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  float: left;
+  color: var(--gray-4);
+  pointer-events: none;
+  height: 25rem;
+}
+
+
+/* ─── Headings ─── */
+.tiptap h1       { font-size: 2rem;   margin: 1.25rem 0 0.75rem; }
+.tiptap h2       { font-size: 1.5rem; margin: 1rem   0 0.5rem;  }
+.tiptap h3       { font-size: 1.25rem;margin: 0.85rem 0 0.45rem;}
+
+/* ─── Inline marks ─── */
+.tiptap strong     { font-weight: 700; }
+.tiptap em         { font-style: italic; }
+.tiptap s          { text-decoration: line-through; }
+.tiptap u          { text-decoration: underline; }
+.tiptap mark       { background: #bbbaa3; padding: 0.1rem 0.3rem; border-radius: 0.3rem; }
+
+/* ─── Links ─── */
+.tiptap a {
+  color: var(--brand);
+  text-decoration: underline;
+}
+.tiptap a:hover {
+  opacity: 0.8;
+}
+
+/* ─── Lists ─── */
+.tiptap ul,
+.tiptap ol {
+  padding-left: 1.25rem;
+  margin: 1rem 0;
+}
+.tiptap ul { list-style: disc; }
+.tiptap ol { list-style: decimal; }
+.tiptap li p { margin: 0.25em 0; }
+
+/* ─── Blockquote ─── */
+.tiptap blockquote {
+  border-left: 3px solid var(--black);
+  margin: 1.25rem 0;
+  padding-left: 1rem;
+  font-style: italic;
+  color: var(--black);
+}
+
+/* ─── Code (inline & block) ─── */
+.tiptap code {
+  background: var(--purple-light);
+  border-radius: 0.3rem;
+  font-family: 'JetBrainsMono', monospace;
+  font-size: 0.85rem;
+  padding: 0.15rem 0.3rem;
+}
+
+.tiptap pre {
+  background: var(--black);
+  color: var(--white);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1rem;
+  overflow-x: auto;
+  margin: 1.25rem 0;
+}
+.tiptap pre code {
+  background: none;
+  color: inherit;
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+/* ─── Images ─── */
+.tiptap img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.25rem 0;
+  display: block;
+}
+.tiptap img.ProseMirror-selectednode {
+  outline: 3px solid var(--brand);
+}
+
+/* title input */
+
+.title-input,
+.category-select {
+  width: 92%;
+  padding: 0.5rem 0.75rem;
+  margin-left: 2rem;
+  background-color: var(--white);
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}

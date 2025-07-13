@@ -22,13 +22,13 @@ export default function AuthProvider({ children }) {
             const { data } = await _get(GET_USER_INFO);
             setUser({
             ...data, id: data._id,
-            });
+            });            
 
             setLoadingAuth(false);
-            if(data?.role === 'admin') navigate('/admin')
-            else if(data?.role === 'blogger') navigate('/blogger')
-            else navigate("/")
-            console.log({data});
+            // if(data?.role === 'admin') navigate('/admin')
+            // else if(data?.role === 'blogger') navigate('/blogger')
+            // else navigate("/")
+            // console.log({data});
         }catch(error){
             console.log({error})
             setUser(null);
@@ -51,6 +51,8 @@ async function handleLogin(payload) {
         return data;
     }catch(error){
         setLoadingAuth(false);
+        console.log({error});
+        
         throw error;
     }
   }

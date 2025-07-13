@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import Loader from "../components/Loader";
+import Loader from "../components/ui/Loader";
 import { DEFAULT_ROUTE_MAPPING_BY_USER_ROLE } from "../config/config";
 import { useAuth } from "./AuthProvider";
 

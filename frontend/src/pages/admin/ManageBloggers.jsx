@@ -1,54 +1,57 @@
-import  { useEffect, useState, useCallback } from "react";
-import { GET_USER, UPDATE_USERS } from "../../Service/useApiService";
+import { useState, useEffect, useCallback } from "react";
+import { GET_BLOGGERS, UPDATE_BLOGGERS } from "../../Service/useApiService";
 import { _get, _put } from "../../Service/ApiService";
-import bguseradmin from "../../assets/bguseradmin.jpg";
+import bgblogadmin from "../../assets/bgblogadmin.jpeg";
 
-const ManageUsers = () => {
-  const [users, setUsers]   = useState([]);
-  const [openRowId, setOpenRowId] = useState(null);   
+const ManageBloggers = () => {
+  const [bloggers, setBloggers] = useState([]);
+  const [toggle, setToggle] = useState(null);
 
-  /* ───  fetch list once ─── */
   useEffect(() => {
-    (async () => {
+    const fetchBloggers = async () => {
       try {
-        const { data } = await _get(GET_USER);
-        setUsers(data?.users ?? []);
-      } catch (err) {
-        console.error("Failed to fetch users", err);
+        const { data } = await _get(GET_BLOGGERS);
+        setBloggers(data?.users);
+        // console.log(data.users);
+
+      } catch (error) {
+        console.error("Failed to load bloggers", error);
       }
-    })();
+    };
+    fetchBloggers();
   }, []);
 
-  /* ───  approve / un‑approve ─── */
   const handleApproval = useCallback(async (id, currentStatus) => {
-
-    setUsers(prev =>
-      prev.map(u => (u._id === id ? { ...u, approval: !currentStatus } : u))
+    // update state locally
+    setBloggers((prev) =>
+      prev.map((b) => (b._id === id ? { ...b, approval: !currentStatus} : b))
     );
-    setOpenRowId(null);           
+     setToggle(null);
 
     try {
-      await _put(UPDATE_USERS(id), {
+        await _put(UPDATE_BLOGGERS(id), {
         approval: !currentStatus,
         isActive: !currentStatus,
       });
     } catch (err) {
-      setUsers(prev =>
-        prev.map(u => (u._id === id ? { ...u, approval: currentStatus } : u))
-      );
       console.error("Could not update approval", err);
     }
   }, []);
 
   return (
     <div
-      className="w-full min-h-screen bg-cover bg-center"
+      className="w-full min-h-screen bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: `linear-gradient(rgba(0,0,0,.8),rgba(0,0,0,.8)),url(${bguseradmin})`,
+        backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(${bgblogadmin})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
       }}
     >
       <div className="p-6">
-        <h1 className="text-3xl font-semibold text-white mb-6">Users List</h1>
+        <h1 className="text-3xl font-semibold text-white mb-6">
+          Bloggers List
+        </h1>
 
         <div className="overflow-x-auto bg-white rounded-lg shadow-md">
           <table className="min-w-full table-auto">
@@ -64,15 +67,18 @@ const ManageUsers = () => {
             </thead>
 
             <tbody>
-              {users.length ? (
-                users.map(u => (
-                  <tr key={u._id} className="border-b last:border-0">
-                    <td className="px-4 py-2">{u.firstName}</td>
-                    <td className="px-4 py-2">{u.lastName}</td>
-                    <td className="px-4 py-2">{u.email}</td>
-                    <td className="px-4 py-2">{u.mobileNumber}</td>
+              {bloggers.length ? (
+                bloggers.map((blogger) => (
+                  <tr
+                    key={blogger._id}
+                    className="not-last:border-b border-gray-300"
+                  >
+                    <td className="px-4 py-2">{blogger.firstName}</td>
+                    <td className="px-4 py-2">{blogger.lastName}</td>
+                    <td className="px-4 py-2">{blogger.email}</td>
+                    <td className="px-4 py-2">{blogger.mobileNumber}</td>
                     <td className="px-4 py-2">
-                      {u.approval ? (
+                      {blogger.approval === true ? (
                         <span className="px-2 py-1 text-green-700 bg-green-100 rounded-full">
                           Approved
                         </span>
@@ -83,23 +89,27 @@ const ManageUsers = () => {
                       )}
                     </td>
                     <td className="px-4 py-2">
-                      {openRowId === u._id ? (
+                      {toggle === blogger._id ? (
                         <button
-                          onClick={() => handleApproval(u._id, u.approval)}
+                          onClick={() =>
+                            handleApproval(blogger._id, blogger.approval)
+                          }
                           className={`py-1 px-3 rounded-md font-medium text-sm
                             ${
-                              u.approval
+                              blogger.approval
                                 ? "bg-red-500 text-white hover:bg-red-600"
                                 : "bg-green-500 text-white hover:bg-green-600"
                             } transition-colors`}
                         >
-                          {u.approval ? "Un‑approve" : "Approve"}
+                          {blogger.approval ? "Un‑approve" : "Approve"}
                         </button>
                       ) : (
                         <button
                           onClick={() =>
-                            setOpenRowId(prev => (prev === u._id ? null : u._id))
-                          }
+                            setToggle((prev) =>
+                              prev === blogger._id ? null : blogger._id
+                            )
+                          } 
                           className="text-2xl px-3 cursor-pointer select-none"
                         >
                           …
@@ -110,8 +120,8 @@ const ManageUsers = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6" className="px-4 py-6 text-center">
-                    No users available.
+                  <td colSpan="6" className="px-4 py-2 text-center">
+                    No bloggers available.
                   </td>
                 </tr>
               )}
@@ -123,4 +133,4 @@ const ManageUsers = () => {
   );
 };
 
-export default ManageUsers;
+export default ManageBloggers;

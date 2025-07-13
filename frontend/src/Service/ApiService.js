@@ -27,7 +27,7 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     async (error) => {
-        const excludeRoute = [""];
+        const excludeRoute = ["auth/info", "/auth/login"];
 
         const REDIRECT_STATUS_CODES = [ 401, 403, 429 ];
         if(
@@ -35,6 +35,8 @@ axiosInstance.interceptors.response.use(
             REDIRECT_STATUS_CODES.includes(error.response.status) &&
             !excludeRoute.includes(error?.config?.url)
         ){
+            console.log(error.config.url);
+            
             window.location.href = "/login";
         }
         return Promise.reject(error);
@@ -69,5 +71,5 @@ export {
     _get,
     _post,
     _put,
-    _delete
+    _delete,
 };

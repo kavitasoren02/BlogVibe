@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { _post } from "../../Service/ApiService";
 import { useAuth } from "../../ProtectedRoute/AuthProvider";
 import { toast } from "react-toastify";
+import { DEFAULT_ROUTE_MAPPING_BY_USER_ROLE } from "../../config/config";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -28,21 +29,28 @@ const LoginForm = () => {
       password: "",
     },
     validationSchema,
-    onSubmit: async (values) => {
-      setIsLoading(true);
-      try {
-        const data = await handleLogin(values);
-        toast.success(data.message);
-      } catch (error) {
-        toast.error(error.response.data.message);
-      } finally {
-        setIsLoading(false);
-      }
-    },
+onSubmit: async (values) => {
+  setIsLoading(true);
+  try {
+
+    const data  = await handleLogin(values); 
+    console.log({data});
+    
+    toast.success(data.message);
+
+  } catch (error) {
+    toast.error(error?.response?.data?.message || "Login failed");
+    // console.log(error);
+    
+  } finally {
+    setIsLoading(false);
+  }
+}
+
   });
 
   const handleSignUp = () => {
-    navigate("/auth/signup");
+    navigate("/user/register");
   };
 
   return (
