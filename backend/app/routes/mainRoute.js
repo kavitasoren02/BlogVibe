@@ -6,6 +6,7 @@ import CommentController from '../comment/CommentController.js';
 import uploadRouter from '../imagefile/UploadFileController.js';
 import { authenticate } from '../middleware/authMiddleware.js';
 import LikeController from '../likes/LikeController.js';
+import Dashboard from '../dashboard/Dashboard.js';
 
 const router = express.Router();
 
@@ -19,6 +20,9 @@ router.use('/blogs', CommentController);
 
 router.use('/file',authenticate, uploadRouter);
 
-router.use('/like', authenticate, LikeController)
+router.use('/like', authenticate, LikeController);
+
+router.use('/dashboard', authenticate, Dashboard);
+
 
 export default router;

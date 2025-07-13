@@ -28,8 +28,9 @@ const newUser = new UserModal({
     password: hashedPassword,
     role,
     // approval: role === ROLE.USER ? true : false
-    approval: true
-
+    // approval: true
+    approval: role === ROLE.AUTHOR ? false : true,
+    isActive: role === ROLE.AUTHOR ? false : true,
 });
 
 try{
@@ -45,6 +46,15 @@ export const getAllUsers = async () =>{
 
     try{
         return await UserModal.find({ isDeleted: false, role: ROLE.USER}, { password: 0});
+    }catch(error){
+        throw error;
+    }
+};
+//Using-(GET)
+export const getAllBloggers = async () =>{
+
+    try{
+        return await UserModal.find({ isDeleted: false, role: ROLE.AUTHOR}, { password: 0});
     }catch(error){
         throw error;
     }
@@ -108,4 +118,5 @@ export const  deleteUser = async (id, deletedBy) =>{
         throw error;
     }
 };
+
 

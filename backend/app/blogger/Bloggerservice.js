@@ -2,6 +2,7 @@ import BloggerModal from "../blogger/modals/Blogger.js";
 import UserModal from "../user/modals/User.js";
 import { ROLE } from "../enums/role.js";
 import slugify from "slugify";
+import mongoose from "mongoose";
 
 //genetrating unique slung
 const generateUniqueSlug = async (title) => {
@@ -31,7 +32,7 @@ export const createBlog = async (req, res) => {
       return res.status(403).json({ message: "Only authors can create blogs" });
     }
 
-    const { title, content, images, category, isPublished, publishedAt } =
+    const { title, content, description, images, category, isPublished, publishedAt } =
       req.body;
 
     const generatedSlug = await generateUniqueSlug(title);
@@ -41,9 +42,11 @@ export const createBlog = async (req, res) => {
       title,
       slug: generatedSlug,
       content,
+      description,
       images,
       author: userId,
       category,
+      isActive: isPublished === "published",
       isPublished,
       publishedAt: isPublished ? publishedAt || new Date() : null,
     });
@@ -61,6 +64,20 @@ export const createBlog = async (req, res) => {
 export const getAllBlog = async () => {
   try {
     const aggregatestage = [
+      {
+        $lookup: {
+          from: "users",
+          localField: "author",
+          foreignField: "_id",
+          as: "author",
+        },
+      },
+      {
+        $unwind: {
+          path: "$author",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
       {
         $lookup: {
           from: "likes",
@@ -93,21 +110,95 @@ export const getAllBlog = async () => {
 };
 
 //Using-(GET)byId
-export const getBlogById = async (req, res) => {
-  try {
-    const blogId = req.params.id;
-    console.log(blogId);
+// export const getBlogById = async (req, res) => {
+//   try {
+//     const { id }= req.params;
+//     console.log(id);
 
-    const blog = await BloggerModal.findById(blogId);
-    if (!blog) {
-      return res.status(404).json({ message: "Blog not found" });
+//     const blog = await BloggerModal.findById(id);
+//     if (!blog) {
+//       return res.status(404).json({ message: "Blog not found" });
+//     }
+//     return res.status(200).json({
+//       message: "Blog fetched successfully",
+//       blog,
+//     });
+//   } catch (error) {
+//     throw error;
+//   }
+// };
+
+export const getBlogById = async (req, res) => {
+  try{
+    const { id } = req.params;
+    console.log(id);
+    
+    const blog = await BloggerModal.aggregate([
+      {
+        $match: { _id: new mongoose.Types.ObjectId(id)},
+      },
+       {
+    $lookup: {
+      from: "users",
+      localField: "author",
+      foreignField: "_id",
+      as: "author"
     }
-    return res.status(200).json({
-      message: "Blog fetched successfully",
-      blog,
-    });
-  } catch (error) {
+  },
+  {
+    $unwind: {
+      path: "$author",
+      preserveNullAndEmptyArrays: true
+    }
+  },
+    ]);
+    if(!blog){
+      return res.status(404).json({ message: "No blog found" });
+    }
+    return res.status(200).json(blog[0]);
+  }catch(error){
     throw error;
+  }
+}
+// Using-(GET) getownblogs
+export const getBlogsByUserId = async (userId) => {
+  try {
+    const user = await UserModal.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    const blogs = await BloggerModal.aggregate([
+        {
+        $match: {                                  
+          author: new mongoose.Types.ObjectId(userId),
+          isDeleted: false,
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "author",
+          foreignField: "_id",
+          as: "author",
+        },
+      },
+      {
+        $unwind: {
+          path: "$author",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $sort: {
+          createdAt: -1,
+        },
+      },
+    ]);
+
+    return blogs;
+  } catch (err) {
+    console.error("getBlogsByUserId - error:", err.message);
+    throw err;
   }
 };
 
@@ -185,3 +276,21 @@ export const searchBlogs = async (keyword) => {
     throw error;
   }
 };
+
+export const getAllBlogss = async (req, res) => {
+  try {
+    const all = req.query.all === "true";
+
+    const blogs = await BloggerModal.find(
+      all ? {} : {isPublished: "published" }
+    )
+    .sort({createdAt: -1})
+    .populate("author", "name")
+    .populate("category", "title")
+    .lean();
+
+    return blogs;
+  }catch(err) {
+    throw err;
+  }
+}

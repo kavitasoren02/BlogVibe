@@ -9,7 +9,9 @@ export const createComment = async (req, res) => {
 
     // Validate input
     if (!blogId || !commentText) {
-      return res.status(400).json({ message: "Blog ID and comment text are required" });
+      return res
+        .status(400)
+        .json({ message: "Blog ID and comment text are required" });
     }
 
     // Check if the blog exists
@@ -23,15 +25,38 @@ export const createComment = async (req, res) => {
       blog: blogId,
       user: userId,
       comment: commentText,
+      blogger: blog.author
     });
 
     // Save comment to database
     await newComment.save();
 
-    return newComment
+    return newComment;
   } catch (error) {
     console.error("Error creating comment:", error);
     throw error;
   }
 };
 
+export const getCommentByBlogId = async (req, res) => {
+  try {
+    const  {blogId} = req.params;
+    console.log(blogId);
+    
+    if (!blogId) {
+      return res.status(400).json({ message: "Blog ID is required." });
+    }
+    const comments = await CommentModal.find({blog: blogId })
+    .populate({
+      path: "blog" , 
+    })
+    .populate("blogger")
+    .populate("user")
+    .sort({
+      createdAt: -1,
+    });
+    return comments;
+  } catch (error) {
+    throw error;
+  }
+};

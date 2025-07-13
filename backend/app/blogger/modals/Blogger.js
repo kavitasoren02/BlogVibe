@@ -21,10 +21,14 @@ const BlogSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    
+    description: {
+      type: String,
+      required: true,
+    },
 
     images: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Image",
+      type: String,
       default: null,
     },
 
@@ -36,7 +40,7 @@ const BlogSchema = new mongoose.Schema(
 
     category: {
       type: String,
-      required: true,
+      required: false,
       trim: true,
     },
 
@@ -53,7 +57,7 @@ const BlogSchema = new mongoose.Schema(
     },
 
     isPublished: {
-      type: Boolean,
+      type: String,
       default: false,
     },
 
@@ -77,7 +81,11 @@ const BlogSchema = new mongoose.Schema(
 
     isActive: {
       type: Boolean,
-      default: true,  
+      default: false,  
+    },
+    approval: {
+      type: Boolean,
+      default: false,
     },
   },
   {

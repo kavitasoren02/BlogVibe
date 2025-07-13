@@ -7,21 +7,21 @@ import { Image } from './modals/ImageSchema.js'; // Make sure to use `.js` if us
 const router = express.Router();
 dotenv.config();
 
-// ✅ Cloudinary Configuration
+//  Cloudinary Configuration
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// ✅ Multer Configuration (Memory storage)
+// Multer Configuration (Memory storage)
 const storage = multer.memoryStorage();
 
 const upload = multer({
   storage: storage,
   limits: { fileSize: 5 * 1024 * 1024 }, // 5 MB
   fileFilter: (req, file, cb) => {
-    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
@@ -30,14 +30,14 @@ const upload = multer({
   },
 });
 
-// ✅ Upload Route
+// Upload Route
 router.post('/upload', upload.single('image'), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded.' });
     }
 
-    // ✅ Promise wrapper for upload_stream
+    //  Promise wrapper for upload_stream
     const streamUpload = () => {
       return new Promise((resolve, reject) => {
         const stream = cloudinary.uploader.upload_stream(
@@ -53,7 +53,8 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 
     const result = await streamUpload();
 
-    // ✅ Save Image Info to MongoDB
+
+    //  Save Image Info to MongoDB
     const imageData = {
       url: result.secure_url,
       public_id: result.public_id,
@@ -61,7 +62,7 @@ router.post('/upload', upload.single('image'), async (req, res) => {
       size: result.bytes,
       publisherId: req.userId
     };
-
+      
     const image = new Image(imageData);
     await image.save();
 
@@ -81,11 +82,9 @@ router.post('/upload', upload.single('image'), async (req, res) => {
 
 router.get('/getImage', async(req,res) =>{
 
-    const userId = req.userId;
-    // console.log(userId);
-    
+    const userId = req.userId;    
     try{
-        const result = await Image.find({ publisherId: userId});
+        const result = await Image.find({ publisherId: userId}).sort({uploaded_at: -1});
         if(!result){
             return res.status(404).json({ message: 'Image not found..'});
         }

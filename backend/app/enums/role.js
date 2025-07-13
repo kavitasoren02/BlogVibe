@@ -3,7 +3,7 @@
 export const ROLE = Object.freeze({
 
     ADMIN: 'admin',
-    AUTHOR: 'author',
+    AUTHOR: 'blogger',
     USER: 'user',
 
 })

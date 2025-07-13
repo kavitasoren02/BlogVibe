@@ -2,7 +2,9 @@ import express from "express";
 import {
   createBlog,
   getAllBlog,
+  getAllBlogss,
   getBlogById,
+  getBlogsByUserId,
   searchBlogs,
   softDeleteById,
   updateBlogById,
@@ -50,6 +52,23 @@ router.get("/getblog/:id", async (req, res) => {
   }
 });
 
+router.get("/ownblogs/:userId", authenticate, async (req, res) => {
+  const { userId } = req.params;
+  console.log(userId);
+
+  try {
+    const ownBlogs = await getBlogsByUserId(userId);
+
+    if (!ownBlogs.length) {
+      return res.status(404).json({ message: "No blogs found" });
+    }
+    return res.status(200).json({ ownBlogs });
+  } catch (error) {
+    console.error("Error fetching users.", error);
+    res.status(500).json({ message: "Internal server Error" });
+  }
+});
+
 router.put("/updateblog/:id", authenticate, async (req, res) => {
   try {
     const blogId = req.params.id;
@@ -70,7 +89,7 @@ router.put("/updateblog/:id", authenticate, async (req, res) => {
   }
 });
 
-router.patch("/softdelete/:id", authenticate, async (req, res) => {
+router.put("/softdelete/:id", authenticate, async (req, res) => {
   try {
     const blogId = req.params.id;
     const deleteBy = req.userId;
@@ -105,4 +124,16 @@ router.get("/search", async (req, res) => {
   }
 });
 
+router.get("/allblogs", async (req, res) => {
+  try {
+    const allBlogs = await getAllBlogss(req, res);
+    if (!allBlogs.length) {
+      return res.status(404).json({ message: "No blogs found" });
+    }
+    res.status(200).json({ allBlogs });
+  } catch (error) {
+    console.error("Error fetching blog by ID.", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 export default router;

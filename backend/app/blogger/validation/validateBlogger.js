@@ -20,11 +20,11 @@ export const validateBlogger = [
     .isLength({ min: 50 })
     .withMessage('Content must be atleast 50m characters long'),
 
-    body('category')
-    .notEmpty()
-    .withMessage('Category is required')
-    .isString()
-    .withMessage('Category must be a valid string'),
+    // body('category')
+    // .isEmpty()
+    // .withMessage('Category is required')
+    // .isString()
+    // .withMessage('Category must be a valid string'),
 
     (req, res, next) => {
         const errors = validationResult(req);

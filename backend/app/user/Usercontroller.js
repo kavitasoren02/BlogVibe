@@ -1,5 +1,5 @@
 import express from 'express';
-import { registerUser, getAllUsers, getUserById, updateUser, deleteUser} from './Userservice.js';
+import { registerUser, getAllUsers, getUserById, updateUser, deleteUser, getAllBloggers} from './Userservice.js';
 import { validateUser } from './validation/validateUser.js';
 import { authenticate } from '../middleware/authMiddleware.js';
 
@@ -35,6 +35,22 @@ router.get( '/', async (req, res) => {
     }
 });
 
+router.get( '/bloggers', async (req, res) => {
+
+    try{
+
+        const users = await getAllBloggers();
+        res.status(200).json({ users});
+
+    }catch(error){
+
+        console.error('Error fetching users.', error);
+        res.status(500).json({ message: 'Internal server Error'}); 
+        
+    }
+});
+
+
 router.get('/:id' , async(req, res) =>{
 
     const { id } = req.params;
@@ -56,7 +72,7 @@ router.get('/:id' , async(req, res) =>{
 
 router.put('/:id', authenticate, async(req, res) => {
 
-    const{ id } = req.params;
+    const { id } = req.params;
     try{
         const updatedUser = await updateUser(id, req.body, req.userId);
         if(!updatedUser){
