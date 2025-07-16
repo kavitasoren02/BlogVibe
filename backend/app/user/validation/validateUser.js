@@ -29,13 +29,12 @@ export const validateUser = [
     .isNumeric()
     .withMessage('Mobile number must be numeric'),
     
-    body('password')
+
+  body('password')
     .notEmpty()
     .withMessage('Password is required')
     .isLength({ min: 8 })
-    .withMessage('Password should be at least 8 characters long')
-    .matches(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/)
-    .withMessage('Password must contain at least one letter and one number'),
+    .withMessage('Password should be at least 8 characters long'),
   
 //middleware for validation
 

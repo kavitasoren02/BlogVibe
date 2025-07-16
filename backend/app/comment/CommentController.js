@@ -22,7 +22,7 @@ router.post("/comment", authenticate, async (req, res) => {
   }
 });
 
-router.get("/getcomment/:blogId", authenticate, async (req, res) => {
+router.get("/getcomment/:blogId", async (req, res) => {
   try {
     const getCommentById = await getCommentByBlogId(req, res);
     res.status(200).json({
