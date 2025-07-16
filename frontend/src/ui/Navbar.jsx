@@ -42,13 +42,6 @@ const TopNav = () => {
 
           {user && (
             <>
-              {/* “New Post” link */}
-              <Link
-                to="/create"
-                className="hover:text-gray-300 flex items-center"
-              >
-                <FaPlus className="mr-2" /> New Post
-              </Link>
               {/* “Profile” link */}
               <Link
                 to="/profile"
@@ -59,7 +52,7 @@ const TopNav = () => {
             </>
           )}
 
-          {/* If logged in, show Logout button otherwise logout button*/}
+          {/* If loggedin, show Logout button otherwise logout button*/}
           {user ? (
             <button
               onClick={handleLogout}

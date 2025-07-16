@@ -74,7 +74,7 @@ const Comment = () => {
                 >
                   {/* cover image */}
                   <img
-                    src={blog.imageUrl || bgadmin}
+                    src={blog.images|| bgadmin}
                     alt={blog.title}
                     className="h-32 w-full object-cover"
                   />

@@ -33,12 +33,8 @@ const RegistrationForm = () => {
     role: Yup.string()
       .oneOf(["blogger", "user"], "Invalid role")
       .required("Role is required"),
-
     password: Yup.string()
-      .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        "Password must contain at least 8 characters, one uppercase, one lowercase, one number, and one special character"
-      )
+      .min(8, "Password must be at least 8 characters")
       .required("Password is required"),
 
     confirmPassword: Yup.string()
@@ -76,7 +72,9 @@ const RegistrationForm = () => {
   return (
     <div className="min-h-screen flex justify-center items-center bg-gray-900 px-4">
       <div className="w-full max-w-md p-6 md:p-8 bg-gray-800 rounded-lg shadow-xl">
-        <h2 className="text-3xl font-bold text-center text-white mb-6">Register</h2>
+        <h2 className="text-3xl font-bold text-center text-white mb-6">
+          Register
+        </h2>
 
         <form onSubmit={formik.handleSubmit} className="space-y-4">
           <InputWithLabel
@@ -148,7 +146,9 @@ const RegistrationForm = () => {
             value={formik.values.confirmPassword}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
-            error={formik.touched.confirmPassword && formik.errors.confirmPassword}
+            error={
+              formik.touched.confirmPassword && formik.errors.confirmPassword
+            }
           />
 
           <button

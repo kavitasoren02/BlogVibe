@@ -9,11 +9,12 @@ export const GET_RECENT_BLOGS = "/author/getallblogs";
 
 //Bloggers
 export const GET_BLOGGERS = '/user/bloggers'
-export const GET_USER = '/user'
 export const GET_COUNTS ='/dashboard/blogger'
 export const GET_OWN_BLOGS = (userId) => `/author/ownblogs/${userId}`;
 export const UPDATE_BLOGGERS =(bloggerId) => `/user/${bloggerId}`
+
 //Users
+export const GET_USER = '/user'
 export const UPDATE_USERS =(userId) => `/user/${userId}`
 
 
@@ -22,7 +23,11 @@ export const IMAGE_UPLOAD = "/file/upload";
 export const GET_ALL_IMAGE = "/file/getImage";
 
 //Comments
+export const CREATE_COMMENTS = "/blogs/comment";
 export const GET_BLOG_COMMENTS = (blogId) => `/blogs/getcomment/${blogId}`;
+
+//Likes
+export const CREATE_LIKES = "/like/createlike";
 
 // Blogs
 export const CREATE_BLOGS = "/author/createblog";

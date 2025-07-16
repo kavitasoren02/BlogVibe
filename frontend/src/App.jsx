@@ -180,6 +180,16 @@ function App() {
             </HomeFullScreenLayout>
           }
         />
+        <Route
+          path="profile"
+          element={
+            <FullScreenLayout>
+              <ProtectedRoute allowedRoles={["user"]}>
+                <AdminProfile/>
+              </ProtectedRoute>
+            </FullScreenLayout>
+          }
+        />
       </Routes>
     </>
   );

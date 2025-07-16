@@ -1,5 +1,6 @@
 import axios from "axios";
 import { settings } from "../config/config";
+import { CREATE_COMMENTS, CREATE_LIKES } from "./useApiService";
 
 //Create an instance of Axios with predefined configuration
 const axiosInstance = axios.create({
@@ -27,7 +28,7 @@ axiosInstance.interceptors.response.use(
         return response;
     },
     async (error) => {
-        const excludeRoute = ["auth/info", "/auth/login"];
+        const excludeRoute = ["auth/info", "/auth/login", CREATE_COMMENTS, CREATE_LIKES];
 
         const REDIRECT_STATUS_CODES = [ 401, 403, 429 ];
         if(
