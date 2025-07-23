@@ -78,7 +78,7 @@ CLOUDINARY_API_SECRET=
 cd Frontend
 ```
 
-````bash
+```bash
 npm install
 ```
 
