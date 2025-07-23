@@ -15,13 +15,13 @@ This full-stack **Blog Website** allows users to read, create, update, and delet
 - 🌐 **RESTful APIs**: Modular and scalable backend with clear routes and validations.
 
 
-## 🛠️ **Tech Stack**
+## **Tech Stack**
 
 ### **Frontend**
 - React (Vite)
-- Tailwind CSS
-- Axios for API requests
-- React Router DOM
+- HTML5 Tailwind CSS
+- fetch for API requests
+- React Router 
 
 ### **Backend**
 - Node.js
@@ -45,7 +45,13 @@ git clone https://github.com/kavitasoren02/blog-website.git
 
 ```bash
 cd backend
+```
+
+```bash
 npm install
+```
+
+```bash
 npm run dev
 ```
 
