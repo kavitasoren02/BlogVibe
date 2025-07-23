@@ -60,10 +60,10 @@ npm run dev
 
 ### **Setup Instructions for .env file**
 
-<pre>
-<span style="color:blue">PORT=</span>
-<span style="color:blue">MONGODB_URI=</span>
-<span style="color:blue">JWT_SECRET=</span>
-<span style="color:blue">API_KEY=</span>
-<span style="color:blue">API_SECRET=</span>
-</pre>
+```env
+PORT=
+MONGODB_URI=
+JWT_SECRET=
+API_KEY=
+API_SECRET=
+```
