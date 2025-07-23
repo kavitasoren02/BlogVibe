@@ -52,7 +52,7 @@ npm install
 ```
 
 ```bash
-npm run dev
+nodemon
 ```
 
 ### **Setup Instructions for .env file**
@@ -72,10 +72,11 @@ CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
 
 ```
-## Backend
+## Frontend
 
 ```bash
 cd Frontend
+
 ```
 
 ```bash
