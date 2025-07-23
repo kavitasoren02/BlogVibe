@@ -58,10 +58,12 @@ npm run dev
 ### **Setup Instructions for .env file**
 
 
-PORT=
-MONGO_URI=
-JWT_SECRET_KEY = 
+### **Setup Instructions for .env file**
 
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
+<pre>
+<span style="color:blue">PORT=</span>
+<span style="color:blue">MONGODB_URI=</span>
+<span style="color:blue">JWT_SECRET=</span>
+<span style="color:blue">API_KEY=</span>
+<span style="color:blue">API_SECRET=</span>
+</pre>
