@@ -2,7 +2,6 @@
 
 This full-stack **Blog Website** allows users to read, create, update, and delete blog posts. Built using modern technologies like **React (Vite)** for the frontend and **Express.js + MongoDB** for the backend, it provides a seamless and responsive blogging experience with role-based access and secure authentication.
 
----
 
 ## **Features**
 
@@ -15,7 +14,6 @@ This full-stack **Blog Website** allows users to read, create, update, and delet
 - 📱 **Responsive UI**: Optimized for mobile, tablet, and desktop views.
 - 🌐 **RESTful APIs**: Modular and scalable backend with clear routes and validations.
 
----
 
 ## 🛠️ **Tech Stack**
 
@@ -34,7 +32,6 @@ This full-stack **Blog Website** allows users to read, create, update, and delet
 - express-validator for input validation
 - dotenv for environment configuration
 
----
 
 # **Installation**
 
