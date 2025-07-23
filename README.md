@@ -86,3 +86,11 @@ npm install
 ```bash
 npm run dev
 ```
+
+# **Author**
+
+Kavita(kavitasoren02)
+
+```bash
+https://github.com/kavitasoren02/BlogVibe
+```
