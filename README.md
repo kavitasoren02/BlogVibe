@@ -57,9 +57,6 @@ npm run dev
 
 ### **Setup Instructions for .env file**
 
-
-### **Setup Instructions for .env file**
-
 ```env
 
 PORT=
