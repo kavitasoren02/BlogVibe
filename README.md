@@ -57,10 +57,8 @@ npm run dev
 
 ### **Setup Instructions for .env file**
 
-```bash
 PORT=
 MONGODB_URI=
 JWT_SECRET=
 API_KEY=
 API_SECRET=
-```
