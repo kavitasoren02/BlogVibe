@@ -36,33 +36,28 @@ This full-stack **Blog Website** allows users to read, create, update, and delet
 
 ---
 
-## **Installation**
+# **Installation**
 
-Clone the repository:
+- Install the required packages by running the following command in your terminal:
 
 ```bash
 git clone https://github.com/kavitasoren02/blog-website.git
+```
 
-Backend Setup
+## Backend
 
+```bash
 cd backend
 npm install
 npm run dev
+```
 
-Setup Instructions for .env file
+### **Setup Instructions for .env file**
 
+```bash
 PORT=
 MONGODB_URI=
 JWT_SECRET=
 API_KEY=
 API_SECRET=
-
- Frontend 
-
-cd frontend
-npm install
-npm run dev
-
-.env File Configuration
-
-VITE_API_BASE_URL= 
+```
