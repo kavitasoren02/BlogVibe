@@ -48,7 +48,7 @@ const Sidebar = () => {
 
       {/* Sidebar menu */}
       <div className="mt-6">
-        <ul>
+        <ul className="list-none">
           {isAdmin ? (
             <>
               <li>
