@@ -59,7 +59,8 @@ npm run dev
 
 ```env
 
-  NODE_ENV=
+NODE_ENV=
+
 PORT=
 
 MONGODB_URI=
@@ -70,4 +71,17 @@ CLOUDINARY_CLOUD_NAME=
 CLOUDINARY_API_KEY=
 CLOUDINARY_API_SECRET=
 
+```
+## Backend
+
+```bash
+cd Frontend
+```
+
+````bash
+npm install
+```
+
+```bash
+npm run dev
 ```
