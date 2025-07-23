@@ -59,6 +59,7 @@ npm run dev
 
 ```env
 
+  NODE_ENV=
 PORT=
 
 MONGODB_URI=
