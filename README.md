@@ -57,8 +57,11 @@ npm run dev
 
 ### **Setup Instructions for .env file**
 
-    NODE_ENV=
-    PORT=
-    DB_URI=
-    API_KEY=
-    API_SECRET=
+
+PORT=
+MONGO_URI=
+JWT_SECRET_KEY = 
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
