@@ -91,4 +91,4 @@ npm run dev
 
 Kavita(kavitasoren02)
 
-[https://github.com/kavitasoren02/BlogVibe](https://github.com/kavitasoren02/BlogVibe)
+[https://github.com/kavitasoren02](https://github.com/kavitasoren02)
