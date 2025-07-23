@@ -61,9 +61,15 @@ npm run dev
 ### **Setup Instructions for .env file**
 
 ```env
+
 PORT=
+
 MONGODB_URI=
+
 JWT_SECRET=
-API_KEY=
-API_SECRET=
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
 ```
