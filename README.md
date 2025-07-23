@@ -1,10 +1,10 @@
-# 📝 **Blog Website**
+# **Blog Website**
 
 This full-stack **Blog Website** allows users to read, create, update, and delete blog posts. Built using modern technologies like **React (Vite)** for the frontend and **Express.js + MongoDB** for the backend, it provides a seamless and responsive blogging experience with role-based access and secure authentication.
 
 ---
 
-## ✨ **Features**
+## **Features**
 
 - ✍️ **Create & Manage Blogs**: Authors can write, edit, and delete their blogs.
 - 👤 **User Roles**: Normal Users can read blogs; Authors can create and manage content.
@@ -19,13 +19,13 @@ This full-stack **Blog Website** allows users to read, create, update, and delet
 
 ## 🛠️ **Tech Stack**
 
-### 🧑‍🎨 **Frontend**
+### **Frontend**
 - React (Vite)
 - Tailwind CSS
 - Axios for API requests
 - React Router DOM
 
-### 🧑‍💻 **Backend**
+### **Backend**
 - Node.js
 - Express.js
 - MongoDB + Mongoose
@@ -36,21 +36,20 @@ This full-stack **Blog Website** allows users to read, create, update, and delet
 
 ---
 
-## ⚙️ **Installation**
+## **Installation**
 
 Clone the repository:
 
 ```bash
 git clone https://github.com/kavitasoren02/blog-website.git
 
-🚀 Backend Setup
+Backend Setup
 
 cd backend
 npm install
 npm run dev
 
-📄 Setup Instructions for .env file
-
+Setup Instructions for .env file
 
 PORT=
 MONGODB_URI=
@@ -58,12 +57,12 @@ JWT_SECRET=
 API_KEY=
 API_SECRET=
 
-🎨 Frontend 
+ Frontend 
 
 cd frontend
 npm install
 npm run dev
 
-📄 .env File Configuration
+.env File Configuration
 
 VITE_API_BASE_URL= 
