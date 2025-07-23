@@ -91,6 +91,4 @@ npm run dev
 
 Kavita(kavitasoren02)
 
-```bash
-https://github.com/kavitasoren02/BlogVibe
-```
+[https://github.com/kavitasoren02/BlogVibe](https://github.com/kavitasoren02/BlogVibe)
